@@ -520,7 +520,7 @@ void play(class Board board1)
             int y = -1;
             do
             {
-                printf("Enter square coordinates([Column 0 - 2][Row 0 - 2]): ");
+                printf("Enter square coordinates([Row 0 - 2][Column 0 - 2]): ");
                 scanf("%d %d", &x, &y);
             }while(x < 0 || x > 2 || y < 0 || y > 2 || board1.index[x][y] != -1);
             board1.index[x][y] = 1;
