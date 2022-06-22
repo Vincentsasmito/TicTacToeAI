@@ -1,5 +1,7 @@
 #include <iostream>
+#include <time.h>
 #include <cstdlib>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -24,17 +26,6 @@ class Board {
 class Computer{
     public:
     int x, y;
-
- int firstMove(class Board board1)
- {
-  if(board1.index[1][1] == -1)
-  {
-   x = 1;
-   y = 1;
-   return 1;
-  }
-  return 0;
- }
 
  int priority1n2(class Board board1, int target)
  {
@@ -149,37 +140,121 @@ class Computer{
     x = col;
    return 1;
   }
-
+    //prevent guarenteed loss
+    if(debug == 2 && board1.index[1][1] == -1)
+    {
+        if(board1.index[0][0] == target || board1.index[0][2] == target || board1.index[2][0] == target || board1.index[2][2] == target)
+        {
+            x = 1;
+            y = 1;
+            return 1;
+        }
+    }
+    else if((debug == 4) && ((board1.index[0][0] == target && board1.index[2][2] == target) || (board1.index[0][2] == target && board1.index[2][0] == target)))
+    {
+        if(board1.index[0][1] == -1)
+        {
+            x = 1;
+            y = 0;
+            return 1;
+        }
+        else if(board1.index[1][2] == -1)
+        {
+            x = 2;
+            y = 1;
+            return 1;
+        }
+        else if(board1.index[2][1] == -1)
+        {
+            x = 1;
+            y = 2;
+            return 1;
+        }
+        else if(board1.index[1][0] == -1)
+        {
+            x = 0;
+            y = 1;
+            return 1;
+        }
+    }
   return 0;
  }
 
  int priority3n4(class Board board1, int target)
  {
-  if(board1.index[1][0] == target && board1.index[0][1] == target && board1.index[0][0] == -1)
-  {
-   y = 0;
-   x = 0;
-   return 1;
-  }
-  else if(board1.index[0][1] == target && board1.index[1][2] == target && board1.index[0][2] == -1)
-  {
-   y = 0;
-   x = 2;
-   return 1;
-  }
-  else if(board1.index[1][2] == target && board1.index[2][1] == target && board1.index[2][2] == -1)
-  {
-   y = 2;
-   x = 2;
-   return 1;
-  }
-  else if(board1.index[2][1] == target && board1.index[1][0] == target && board1.index[2][0] == -1)
-  {
-   y = 2;
-   x = 0;
-   return 1;
-  }
-  return 0;
+    if(board1.index[1][0] == target && board1.index[0][1] == target && board1.index[0][0] == -1)
+    {
+        y = 0;
+        x = 0;
+        return 1;
+    }
+    else if(board1.index[0][1] == target && board1.index[1][2] == target && board1.index[0][2] == -1)
+    {
+        y = 0;
+        x = 2;
+        return 1;
+    }
+    else if(board1.index[1][2] == target && board1.index[2][1] == target && board1.index[2][2] == -1)
+    {
+        y = 2;
+        x = 2;
+        return 1;
+    }
+    else if(board1.index[2][1] == target && board1.index[1][0] == target && board1.index[2][0] == -1)
+    {
+        y = 2;
+        x = 0;
+        return 1;
+    }
+    else if(board1.index[0][0] == target && board1.index[2][2] == target && board1.index[2][0] == -1)
+    {
+        x = 0;
+        y = 2;
+        return 1;
+    }
+    else if(board1.index[0][0] == target && board1.index[2][2] == target && board1.index[0][2] == -1)
+    {
+        x = 2;
+        y = 0;
+        return 1;
+    }
+    else if(board1.index[0][2] == target && board1.index[2][0] == target && board1.index[0][0] == -1)
+    {
+        x = 0;
+        y = 0;
+        return 1;
+    }
+    else if(board1.index[0][0] == target && board1.index[2][2] == target && board1.index[2][2] == -1)
+    {
+        x = 2;
+        y = 2;
+        return 1;
+    }
+    else if(board1.index[0][0] == 1 && board1.index[2][2] == -1)
+    {
+        x = 2;
+        y = 2;
+        return 1;
+    }
+    else if(board1.index[0][2] == 1 && board1.index[2][0] == -1)
+    {
+        x = 0;
+        y = 2;
+        return 1;
+    }
+    else if(board1.index[2][2] == 1 && board1.index[0][0] == -1)
+    {
+        x = 0;
+        y = 0;
+        return 1;
+    }
+    else if(board1.index[2][0] == 1 && board1.index[0][2] == -1)
+    {
+        x = 2;
+        y = 0;
+        return 1;
+    }
+    return 0;
  }
 
  int priority5(class Board board1)
@@ -330,6 +405,32 @@ class Computer{
       x = 0; y = 2;
       return 1;
   }
+  //salib tanpa teman
+  if(board1.index[0][1] == -1)
+  {
+      x = 1;
+      y = 0;
+      return 1;
+  }
+  else if(board1.index[1][2] == -1)
+  {
+      x = 2;
+      y = 1;
+      return 1;
+  }
+  else if(board1.index[2][1] == -1)
+  {
+      x = 1;
+      y = 2;
+      return 1;
+  }
+  else if(board1.index[1][0] == -1)
+  {
+      x = 0;
+      y = 1;
+      return 1;
+  }
+
   return 0;
  }
 
@@ -453,14 +554,7 @@ void play(class Board board1)
                 printf("\n.\n");
             }
             //Check if first move, fill center
-            int flag = comp.firstMove(board1);
-            if(flag == 1)
-            {
-                board1.index[comp.y][comp.x] = 0;
-            }
-            else
-            {
-                flag = comp.priority1n2(board1, 0);
+                int flag = comp.priority1n2(board1, 0);
                 if(flag == 1)
                 {
                     board1.index[comp.y][comp.x] = 0;
@@ -496,7 +590,6 @@ void play(class Board board1)
                         }
                     }
                 }
-            }
             win = checkWin(board1, 0);
             printBoard(board1);
             if(win == true)
@@ -508,6 +601,7 @@ void play(class Board board1)
             {
                 printf("Draw!\n");
                 turn = 999;
+                break;
             }
 
 
@@ -536,6 +630,7 @@ void play(class Board board1)
             {
                 printf("Draw!\n");
                 turn = 999;
+                break;
             }
         }
     }
@@ -543,6 +638,7 @@ void play(class Board board1)
 
 int main()
 {
+    srand(time(NULL));
     Board board1;
     play(board1);
 }

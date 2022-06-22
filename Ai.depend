@@ -1,5 +1,7 @@
 # depslib dependency file v1.0
-1655827669 source:c:\users\msi\documents\data structures modul\ai\main.cpp
+1655913825 source:c:\users\msi\documents\data structures modul\ai\main.cpp
 	<iostream>
+	<time.h>
 	<cstdlib>
+	<stdlib.h>
 
